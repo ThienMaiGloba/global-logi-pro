@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:global_logi_pro/core/network/mqtt_service.dart';
 import 'package:global_logi_pro/features/driver/presentation/driver_screen.dart';
+import 'package:global_logi_pro/features/dispatcher/presentation/dispatcher_screen.dart';
+import 'package:global_logi_pro/features/dispatches/presentation/dispatch_screen.dart';
 
 void main() {
-  runApp(const GlobalLogiProApp());
+  runApp(const MyApp());
 }
 
-class GlobalLogiProApp extends StatelessWidget {
-  const GlobalLogiProApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Global Logi Pro',
-      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const MainHomeScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -30,6 +33,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   int _currentIndex = 0;
   final MqttService _mqttService = MqttService();
   String _connectionStatus = 'Connecting...';
+  final List<String> _messages = [];
 
   @override
   void initState() {
@@ -60,18 +64,31 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Trạng thái: $_connectionStatus', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              Text('Trạng thái hệ thống: $_connectionStatus', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 20),
-              const Text('Tin nhắn nhận được từ hệ thống:'),
-              const Card(child: Padding(padding: EdgeInsets.all(12.0), child: Text('Chưa có tin nhắn nào'))),
+              const Text('Tin nhắn thực tế từ Broker (Realtime):', style: TextStyle(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 8),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade300),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: _messages.isEmpty
+                      ? const Text('Chưa có tin nhắn nào từ broker', style: TextStyle(color: Colors.grey))
+                      : ListView.builder(
+                          itemCount: _messages.length,
+                          itemBuilder: (context, index) => Text(_messages[index]),
+                        ),
+                ),
+              ),
             ],
           ),
         ),
       ),
       const DriverScreen(),
-      const Scaffold(
-        body: Center(child: Text('Dispatcher Console: Live Map & Fleet Routing', style: TextStyle(fontSize: 18))),
-      ),
+      const DispatcherScreen(),
     ];
 
     return Scaffold(

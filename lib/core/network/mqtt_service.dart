@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
@@ -28,7 +29,7 @@ class MqttService {
 
     client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>> c) {
       final recMess = c[0].payload as MqttPublishMessage;
-      final pt = MqttPublishPayload.bytesToStringPayload(recMess.payload.message);
+      final pt = utf8.decode(recMess.payload.message);
       
       if (onMessageReceived != null) {
         onMessageReceived!(c[0].topic, pt);

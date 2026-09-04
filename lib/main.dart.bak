@@ -1,0 +1,289 @@
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:mqtt_client/mqtt_client.dart';
+import 'package:mqtt_client/mqtt_server_client.dart';
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
+}
+
+class TripState {
+  static String status = 'Chưa tạo đơn';
+  static String vehicleType = 'Xe máy giao chuẩn tốc';
+  static String pickupLocation = '10.7626, 106.6602';
+  static double driverLat = 10.7700;
+  static double driverLng = 106.6500;
+  static double tripFare = 45000;
+}
+
+class MqttService {
+  static final MqttServerClient client = MqttServerClient(
+    'broker.hivemq.com',
+    'vogx_client_${DateTime.now().millisecondsSinceEpoch}',
+  );
+
+  static Future<void> connect() async {
+    client.logging(on: false);
+    client.setProtocolVersion(MqttConnectProtocolVersion.v311);
+    client.keepAlivePeriod = 20;
+
+    final connMessage = MqttConnectMessage()
+        .withClientIdentifier('vogx_client')
+        .startClean();
+    client.connectionMessage = connMessage;
+
+    try {
+      await client.connect();
+    } catch (e) {
+      client.disconnect();
+    }
+  }
+
+  static void publish(String topic, String message) {
+    final builder = MqttClientPayloadBuilder();
+    builder.addString(message);
+    if (client.connectionStatus?.state == MqttConnectionState.connected) {
+      client.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!);
+    }
+  }
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'VOGX Global Logistic',
+      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+      home: const RoleSelectionScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class RoleSelectionScreen extends StatefulWidget {
+  const RoleSelectionScreen({super.key});
+
+  @override
+  State<RoleSelectionScreen> createState() => _RoleSelectionScreenState();
+}
+
+class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
+  @override
+  void initState() {
+    super.initState();
+    MqttService.connect();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('VOGX GLOBAL LOGISTIC - PROD'),
+        backgroundColor: Colors.blue[800],
+        foregroundColor: Colors.white,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text(
+              'Hệ thống tích hợp MQTT, GPS Real-time & E-Receipt:',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CustomerHomeScreen()),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue[800],
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+              ),
+              child: const Text('1. Cổng Khách hàng (Tạo đơn & Theo dõi GPS)', style: TextStyle(fontSize: 15)),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const DriverHomeScreen()),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green[700],
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+              ),
+              child: const Text('2. Cổng Tài xế (Nhận đơn & Điều hướng)', style: TextStyle(fontSize: 15)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomerHomeScreen extends StatefulWidget {
+  const CustomerHomeScreen({super.key});
+
+  @override
+  State<CustomerHomeScreen> createState() => _CustomerHomeScreenState();
+}
+
+class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
+  GoogleMapController? _mapController;
+  Position? _currentPosition;
+
+  @override
+  void initState() {
+    super.initState();
+    _determinePosition();
+  }
+
+  Future<void> _determinePosition() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) return;
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) return;
+    }
+
+    Position position = await Geolocator.getCurrentPosition();
+    setState(() {
+      _currentPosition = position;
+    });
+
+    if (_mapController != null && _currentPosition != null) {
+      _mapController!.animateCamera(
+        CameraUpdate.newLatLng(
+          LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Cổng Khách Hàng - GPS Trực Tiếp'),
+        backgroundColor: Colors.blue[800],
+        foregroundColor: Colors.white,
+      ),
+      body: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition: const CameraPosition(
+              target: LatLng(10.7626, 106.6602),
+              zoom: 15,
+            ),
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            onMapCreated: (controller) {
+              _mapController = controller;
+            },
+          ),
+          Positioned(
+            bottom: 20,
+            left: 20,
+            right: 20,
+            child: Card(
+              elevation: 6,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Trạng thái đơn: ${TripState.status}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    const SizedBox(height: 8),
+                    Text('Dịch vụ: ${TripState.vehicleType}'),
+                    Text('Cước phí: ${TripState.tripFare} VNĐ'),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          TripState.status = 'Đã tạo đơn - Đang tìm tài xế';
+                        });
+                        MqttService.publish('vogx/orders', 'NEW_ORDER: ${TripState.vehicleType}');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Đã phát tín hiệu đơn hàng lên hệ thống MQTT!')),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue[800], foregroundColor: Colors.white),
+                      child: const Text('Xác nhận đặt đơn vận chuyển'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DriverHomeScreen extends StatelessWidget {
+  const DriverHomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Cổng Tài Xế - Điều Hướng'),
+        backgroundColor: Colors.green[700],
+        foregroundColor: Colors.white,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text('Đơn hàng mới nhận:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 12),
+            Card(
+              elevation: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Loại xe: ${TripState.vehicleType}'),
+                    const SizedBox(height: 8),
+                    Text('Điểm nhận: ${TripState.pickupLocation}'),
+                    const SizedBox(height: 8),
+                    Text('Giá tiền: ${TripState.tripFare} VNĐ'),
+                  ],
+                ),
+              ),
+            ),
+            const Spacer(),
+            ElevatedButton(
+              onPressed: () {
+                TripState.status = 'Tài xế đang đến điểm đón';
+                MqttService.publish('vogx/driver', 'DRIVER_ACCEPTED');
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Đã nhận đơn thành công!')),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green[700],
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+              ),
+              child: const Text('Nhận đơn và Bắt đầu di chuyển', style: TextStyle(fontSize: 16)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

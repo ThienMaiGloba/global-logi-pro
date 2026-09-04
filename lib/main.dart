@@ -1,10 +1,12 @@
+import "package:global_logi_pro/features/dispatches/presentation/dispatch_screen.dart";
 import 'package:flutter/material.dart';
 import 'package:global_logi_pro/core/network/mqtt_service.dart';
-import 'package:global_logi_pro/features/dispatches/presentation/dispatch_screen.dart';
 import 'package:global_logi_pro/features/driver/presentation/driver_screen.dart';
 import 'package:global_logi_pro/features/dispatcher/presentation/dispatcher_screen.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -35,8 +37,7 @@ class MainHomeScreen extends StatefulWidget {
 class _MainHomeScreenState extends State<MainHomeScreen> {
   int _currentIndex = 0;
   final MqttService _mqttService = MqttService();
-  String _connectionStatus = 'Đang kết nối...';
-  final List<String> _messages = [];
+  String _connectionStatus = 'Connecting...';
 
   @override
   void initState() {
@@ -47,12 +48,13 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   Future<void> _initMqtt() async {
     try {
       await _mqttService.initializeClient();
-      setState(() => _connectionStatus = 'Đã kết nối (Online)');
-      _mqttService.onMessageReceived = (topic, message) {
-        setState(() => _messages.insert(0, '[$topic] $message'));
-      };
+      setState(() {
+        _connectionStatus = 'Connected (Online)';
+      });
     } catch (e) {
-      setState(() => _connectionStatus = 'Mất kết nối');
+      setState(() {
+        _connectionStatus = 'Connection Failed';
+      });
     }
   }
 
@@ -61,35 +63,32 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
     final screens = [
       Scaffold(
         appBar: AppBar(
-          title: const Text('☀️ GLOBAL LOGI PRO - LIGHT VIBRANT', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          title: const Text('Global Logi Pro - Control Center', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           backgroundColor: const Color(0xFF0284C7),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFF0284C7), width: 3),
-                  boxShadow: [BoxShadow(color: const Color(0xFF0284C7).withOpacity(0.3), blurRadius: 15)],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: const Color(0xFF0284C7), width: 2),
                 ),
-                child: Text('Trạng thái: $_connectionStatus', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+                child: Text('Trạng thái: $_connectionStatus', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF0F172A))),
               ),
               const SizedBox(height: 20),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFFDB2777), width: 2.5),
-                  ),
-                  child: const Center(
-                    child: Text('Đang chờ tín hiệu MQTT trực tuyến...', style: TextStyle(color: Color(0xFF0284C7), fontSize: 16, fontWeight: FontWeight.bold)),
+              const Text('Tin nhắn nhận được từ hệ thống:', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF0284C7))),
+              const SizedBox(height: 10),
+              const Expanded(
+                child: Card(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Center(child: Text('Chưa có tin nhắn nào', style: TextStyle(color: Color(0xFF64748B)))),
                   ),
                 ),
               ),
@@ -110,7 +109,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
         selectedItemColor: const Color(0xFF0284C7),
         unselectedItemColor: const Color(0xFF64748B),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.flash_on), label: 'Control'),
+          BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Control'),
           BottomNavigationBarItem(icon: Icon(Icons.local_shipping), label: 'Driver'),
           BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Dispatcher'),
         ],

@@ -1,0 +1,38 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum RoleType {
+  CUSTOMER
+  DRIVER_BIKE
+  DRIVER_CAR
+  DRIVER_TRUCK
+  FLEET_MANAGER
+  ADMIN
+  SUPER_ADMIN
+}
+
+model User {
+  id           String      @id @default(uuid())
+  phone        String      @unique
+  email        String?     @unique
+  passwordHash String
+  fullName     String
+  isActive     Boolean     @default(true)
+  isVerified   Boolean     @default(false)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  roles        UserRole[]
+}
+
+model UserRole {
+  id     String   @id @default(uuid())
+  userId String
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   RoleType
+}

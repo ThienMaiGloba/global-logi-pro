@@ -27,7 +27,7 @@ class DriverScreen extends StatelessWidget {
                     Switch(
                       value: true,
                       onChanged: (val) {},
-                      activeColor: Colors.green,
+                      activeThumbColor: Colors.green,
                     ),
                   ],
                 ),

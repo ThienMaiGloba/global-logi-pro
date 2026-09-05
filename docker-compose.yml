@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgis/postgis:15-3.3
+    container_name: global_logi_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: securepassword123
+      POSTGRES_DB: global_logi_pro
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    image: redis:7-alpine
+    container_name: global_logi_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: global_logi_backend
+    environment:
+      - DATABASE_URL=postgresql://postgres:securepassword123@postgres:5432/global_logi_pro?schema=public
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=supersecretjwtkey999
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+
+volumes:
+  pgdata:
+  redisdata:

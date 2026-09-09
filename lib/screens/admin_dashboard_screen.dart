@@ -60,15 +60,26 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
               padding: const EdgeInsets.all(16.0),
               child: ListView(
                 children: [
+<<<<<<< HEAD
                   const Text('Thống kê hệ thống Logistics', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 12),
+=======
+                  const Text('Thống kê hệ thống Logistics', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 16),
+>>>>>>> 4f4dee3efa65b4e34943f620df3f1d97dceed81b
                   GridView.count(
                     crossAxisCount: 2,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
+<<<<<<< HEAD
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     childAspectRatio: 2.3,
+=======
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 1.5,
+>>>>>>> 4f4dee3efa65b4e34943f620df3f1d97dceed81b
                     children: [
                       _buildStatCard('Tổng đơn hàng', '${stats['totalOrders'] ?? 0}', Icons.shopping_bag, Colors.blue),
                       _buildStatCard('Doanh thu', '${stats['totalRevenue'] ?? 0} đ', Icons.attach_money, Colors.green),
@@ -76,9 +87,15 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                       _buildStatCard('Trạng thái', '${stats['systemStatus'] ?? 'Offline'}', Icons.check_circle, Colors.purple),
                     ],
                   ),
+<<<<<<< HEAD
                   const SizedBox(height: 20),
                   const Text('Quản lý hệ thống nhanh', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
+=======
+                  const SizedBox(height: 24),
+                  const Text('Quản lý hệ thống nhanh', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 12),
+>>>>>>> 4f4dee3efa65b4e34943f620df3f1d97dceed81b
                   ListTile(
                     leading: const Icon(Icons.people, color: Colors.blue),
                     title: const Text('Quản lý tài xế & phân quyền'),
@@ -106,6 +123,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
 
   Widget _buildStatCard(String title, String value, IconData icon, Color color) {
     return Card(
+<<<<<<< HEAD
       elevation: 2,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -126,6 +144,25 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                 ],
               ),
             ),
+=======
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                Icon(icon, color: color, size: 24),
+                const SizedBox(width: 8),
+                Expanded(child: Text(title, style: TextStyle(fontSize: 12, color: Colors.grey[600]), overflow: TextOverflow.ellipsis)),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(value, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87)),
+>>>>>>> 4f4dee3efa65b4e34943f620df3f1d97dceed81b
           ],
         ),
       ),

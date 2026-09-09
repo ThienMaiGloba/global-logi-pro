@@ -15,7 +15,10 @@ dependencies:
   url_launcher: ^6.2.5
   http: ^1.6.0
   web_socket_channel: ^3.0.3
+<<<<<<< HEAD
   mqtt_client: ^10.11.11
+=======
+>>>>>>> 4f4dee3efa65b4e34943f620df3f1d97dceed81b
 
 dev_dependencies:
   flutter_test:

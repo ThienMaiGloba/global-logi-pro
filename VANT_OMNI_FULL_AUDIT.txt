@@ -1,0 +1,727 @@
+============================================================
+ VANT OMNI / GLOBAL LOGI PRO — FULL PRE-UI AUDIT
+ DATE: Thứ Năm, 10 Tháng 9 năm 2026 04:24:52 +07
+ ROOT: /home/thien/Projects/global-logi-pro
+============================================================
+
+### 1. GIT REPOSITORY
+## main...origin/main
+?? VANT_OMNI_FULL_AUDIT.txt
+
+REMOTE:
+origin	https://***@github.com/ThienMaiGloba/global-logi-pro.git (fetch)
+origin	https://***@github.com/ThienMaiGloba/global-logi-pro.git (push)
+
+RECENT COMMITS:
+4f4dee3 (HEAD -> main, origin/main, origin/HEAD) chore: save progress for today
+37be67e feat: complete logistics ecosystem backend and mobile client apk build
+6c3f80f Remove workflow folder to fix push restriction
+f7c4693 Save progress: Global Logi Pro logistics system with Dispatcher, Driver and Control Center
+18ca867 Auto-sync CI/CD: 2026-09-04 22:05:48
+2fbd6e7 Auto-sync CI/CD: 2026-09-04 21:03:00
+45df31f Auto-sync update: 2026-09-04 20:47:49
+196c79d Auto-sync by Thiên at 2026-09-04 15:47:17
+fdda3d7 Setup credentials and auto-sync configuration
+b3481d2 Save progress: Global Logi Pro stable build and web app operational
+
+### 2. REPOSITORY SIZE
+2.4M	.
+
+TRACKED FILE COUNT:
+155
+
+### 3. PROJECT TREE
+android/app/build.gradle.kts
+android/app/src/debug/AndroidManifest.xml
+android/app/src/main/AndroidManifest.xml
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+android/app/src/main/kotlin/com/globallogipro/global_logi_pro/MainActivity.kt
+android/app/src/main/res/drawable/launch_background.xml
+android/app/src/main/res/drawable-v21/launch_background.xml
+android/app/src/main/res/mipmap-hdpi/ic_launcher.png
+android/app/src/main/res/mipmap-mdpi/ic_launcher.png
+android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
+android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
+android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+android/app/src/main/res/values-night/styles.xml
+android/app/src/main/res/values/styles.xml
+android/app/src/profile/AndroidManifest.xml
+android/build.gradle.kts
+android/.gitignore
+android/.gradle/9.3.1/checksums/checksums.lock
+android/.gradle/9.3.1/checksums/md5-checksums.bin
+android/.gradle/9.3.1/checksums/sha1-checksums.bin
+android/.gradle/9.3.1/fileChanges/last-build.bin
+android/.gradle/9.3.1/fileHashes/fileHashes.bin
+android/.gradle/9.3.1/fileHashes/fileHashes.lock
+android/.gradle/9.3.1/fileHashes/resourceHashesCache.bin
+android/.gradle/9.3.1/gc.properties
+android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+android/.gradle/buildOutputCleanup/cache.properties
+android/.gradle/noVersion/buildLogic.lock
+android/gradle.properties
+android/.gradle/vcs-1/gc.properties
+android/gradlew
+android/gradlew.bat
+android/gradle/wrapper/gradle-wrapper.jar
+android/gradle/wrapper/gradle-wrapper.properties
+android/local.properties
+android/settings.gradle.kts
+backend/Dockerfile
+backend/package.json
+backend/prisma/schema.prisma
+backend/src/app.module.ts
+backend/src/main.ts
+backend/src/modules/admin/admin.controller.ts
+backend/src/modules/admin/admin.service.ts
+backend/src/modules/auth/auth.controller.ts
+backend/src/modules/auth/auth.module.ts
+backend/src/modules/auth/auth.service.ts
+backend/src/modules/auth/dto/auth.dto.ts
+backend/src/modules/auth/prisma.service.ts
+backend/src/orders/orders.controller.ts
+backend/tsconfig.json
+lib/core/network/mqtt_service.dart
+lib/core/services/navigation_service.dart
+lib/features/dispatcher/presentation/dispatcher_screen.dart
+lib/features/dispatches/presentation/dispatch_screen.dart
+lib/features/driver/presentation/driver_screen.dart
+lib/main.dart
+lib/screens/admin_dashboard_screen.dart
+lib/screens/dispatcher_screen.dart
+lib/screens/driver_screen.dart
+lib/services/websocket_service.dart
+test/widget_test.dart
+
+### 4. DART FILES / LINE COUNTS
+   12 lib/core/services/navigation_service.dart
+   15 lib/features/dispatches/presentation/dispatch_screen.dart
+   30 test/widget_test.dart
+   31 lib/features/dispatcher/presentation/dispatcher_screen.dart
+   32 lib/services/websocket_service.dart
+   45 lib/core/network/mqtt_service.dart
+   61 lib/features/driver/presentation/driver_screen.dart
+   89 lib/screens/driver_screen.dart
+   95 lib/main.dart
+   99 lib/screens/dispatcher_screen.dart
+  131 lib/screens/admin_dashboard_screen.dart
+  640 total
+
+### 5. PUBSPEC
+name: global_logi_pro
+description: "Global Logi Pro Logistics Application"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sqflite: ^2.3.2
+  sqflite_common_ffi: ^2.3.3
+  path: ^1.9.0
+  url_launcher: ^6.2.5
+  http: ^1.6.0
+  web_socket_channel: ^3.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+### 6. FLUTTER VERSION
+Flutter 3.47.2 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision d3b14c8769 (2 tuần trước) • 2026-08-26 16:07:51 -0700
+Engine • hash 1cf1c4773fb941c4c74a7f8bb144a8837596c0f4 (revision a804b26164) (14 days ago) • 2026-08-26 18:46:13.000Z
+Tools • Dart 3.13.2 • DevTools 2.60.0
+
+### 7. FLUTTER DOCTOR
+[✓] Flutter (Channel stable, 3.47.2, on Ubuntu 26.04 LTS 7.0.0-31-generic, locale vi_VN.UTF-8) [47ms]
+    • Flutter version 3.47.2 on channel stable at /home/thien/snap/flutter/common/flutter
+    • Upstream repository https://github.com/flutter/flutter.git
+    • Framework revision d3b14c8769 (2 tuần trước), 2026-08-26 16:07:51 -0700
+    • Engine revision a804b26164
+    • Dart version 3.13.2
+    • DevTools version 2.60.0
+    • Feature flags: enable-web, enable-linux-desktop, enable-macos-desktop, enable-windows-desktop, enable-android, enable-ios, cli-animations, enable-native-assets, enable-record-use, enable-swift-package-manager, omit-legacy-version-file, enable-lldb-debugging, enable-uiscene-migration
+
+[✓] Android toolchain - develop for Android devices (Android SDK version 36.0.0) [1.645ms]
+    • Android SDK at /home/thien/Android/Sdk
+    • Emulator version unknown
+    • Platform android-36, build-tools 36.0.0
+    • ANDROID_HOME = /home/thien/Android/Sdk
+    ! Multiple adb binaries found. This can cause conflicts and device detection issues:
+        - /home/thien/Android/Sdk/platform-tools/adb
+        - /usr/lib/android-sdk/platform-tools/adb
+    • Java binary at: /usr/bin/java
+      This JDK was found in the system PATH.
+      To manually set the JDK path, use: `flutter config --jdk-dir="path/to/jdk"`.
+    • Java version OpenJDK Runtime Environment (build 17.0.20+8-1-26.04-Ubuntu)
+    • All Android licenses accepted.
+
+[✗] Chrome - develop for the web (Cannot find Chrome executable at google-chrome) [50ms]
+    ! Cannot find Chrome. Try setting CHROME_EXECUTABLE to a Chrome executable.
+
+[✓] Linux toolchain - develop for Linux desktop [182ms]
+    • Ubuntu clang version 21.1.8 (6ubuntu1)
+    • cmake version 4.2.3
+    • ninja version 1.13.2
+    • pkg-config version 2.5.1
+    ! Unable to access driver information using 'eglinfo'.
+      It is likely available from your distribution (e.g.: apt install mesa-utils)
+
+[✓] Connected device (3 available) [269ms]
+    • SM N975F (mobile) • RF8N833WVEM        • android-arm64 • Android 12 (API 31)
+    • SM N975F (mobile) • 192.168.1.124:5555 • android-arm64 • Android 12 (API 31)
+    • Linux (desktop)   • linux              • linux-x64     • Ubuntu 26.04 LTS 7.0.0-31-generic
+
+[✓] Network resources [474ms]
+    • All expected network resources are available.
+
+! Doctor found issues in 1 category.
+
+### 8. ANDROID CONFIG
+
+--- android/settings.gradle.kts
+pluginManagement {
+    val flutterSdkPath =
+        run {
+            val properties = java.util.Properties()
+            file("local.properties").inputStream().use { properties.load(it) }
+            val flutterSdkPath = properties.getProperty("flutter.sdk")
+            require(flutterSdkPath != null) { "flutter.sdk not set in local.properties" }
+            flutterSdkPath
+        }
+
+    includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id("dev.flutter.flutter-plugin-loader") version "1.0.0"
+    id("com.android.application") version "9.1.0" apply false
+    id("org.jetbrains.kotlin.android") version "2.4.0" apply false
+}
+
+include(":app")
+
+--- android/build.gradle.kts
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+val newBuildDir: Directory =
+    rootProject.layout.buildDirectory
+        .dir("../../build")
+        .get()
+rootProject.layout.buildDirectory.value(newBuildDir)
+
+subprojects {
+    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
+    project.layout.buildDirectory.value(newSubprojectBuildDir)
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register<Delete>("clean") {
+    delete(rootProject.layout.buildDirectory)
+}
+
+--- android/app/build.gradle.kts
+plugins {
+    id("com.android.application")
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id("dev.flutter.flutter-gradle-plugin")
+}
+
+android {
+    namespace = "com.globallogipro.global_logi_pro"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId = "com.globallogipro.global_logi_pro"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
+        // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)
+        // You can force using the value of versionCode by specifying the `-P force-version-code-ignoring-abi=true`
+        // flag during build.
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+--- android/gradle.properties
+org.gradle.jvmargs=-Xmx8G -XX:MaxMetaspaceSize=4G -XX:ReservedCodeCacheSize=512m -XX:+HeapDumpOnOutOfMemoryError
+android.useAndroidX=true
+# This newDsl flag was added by the Flutter template
+android.newDsl=false
+# This builtInKotlin flag was added by the Flutter template
+android.builtInKotlin=false
+
+--- android/gradle/wrapper/gradle-wrapper.properties
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+distributionUrl=https\://services.gradle.org/distributions/gradle-9.3.1-all.zip
+
+--- android/app/src/main/AndroidManifest.xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="http" />
+        </intent>
+    </queries>
+    <application
+        android:label="Global Logi Pro"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+</manifest>
+
+### 9. MAIN DART
+import 'package:flutter/material.dart';
+import 'screens/admin_dashboard_screen.dart';
+import 'screens/dispatcher_screen.dart';
+import 'screens/driver_screen.dart';
+
+void main() {
+  runApp(const GlobalLogiApp());
+}
+
+class GlobalLogiApp extends StatelessWidget {
+  const GlobalLogiApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Global Logi Pro',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const LoginSelectionScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class LoginSelectionScreen extends StatelessWidget {
+  const LoginSelectionScreen({super.key});
+  final String backendUrl = 'http://192.168.1.42:3000';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue.shade800, Colors.blue.shade500],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Card(
+              elevation: 8,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.local_shipping, size: 64, color: Colors.blue[800]),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Global Logi Pro',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue[900]),
+                    ),
+                    Text('Hệ thống Quản lý Vận hành & Telemetry', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                    const SizedBox(height: 24),
+                    const Text('Chọn phân quyền đăng nhập:', style: TextStyle(fontWeight: FontWeight.w500)),
+                    const SizedBox(height: 16),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.purple, minimumSize: const Size(double.infinity, 48)),
+                      icon: const Icon(Icons.admin_panel_settings),
+                      label: const Text('Đăng nhập với vai trò Admin (Quản trị)', style: TextStyle(color: Colors.white)),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => AdminDashboardScreen(backendUrl: backendUrl)));
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue[700], minimumSize: const Size(double.infinity, 48)),
+                      icon: const Icon(Icons.support_agent),
+                      label: const Text('Đăng nhập với vai trò Dispatcher (Điều phối)', style: TextStyle(color: Colors.white)),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => DispatcherScreen(backendUrl: backendUrl)));
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green[700], minimumSize: const Size(double.infinity, 48)),
+                      icon: const Icon(Icons.drive_eta),
+                      label: const Text('Đăng nhập với vai trò Driver (Tài xế)', style: TextStyle(color: Colors.white)),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => DriverScreen(backendUrl: backendUrl)));
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+### 10. BACKEND FILES
+backend/Dockerfile
+backend/package.json
+backend/prisma/schema.prisma
+backend/src/app.module.ts
+backend/src/main.ts
+backend/src/modules/admin/admin.controller.ts
+backend/src/modules/admin/admin.service.ts
+backend/src/modules/auth/auth.controller.ts
+backend/src/modules/auth/auth.module.ts
+backend/src/modules/auth/auth.service.ts
+backend/src/modules/auth/dto/auth.dto.ts
+backend/src/modules/auth/prisma.service.ts
+backend/src/orders/orders.controller.ts
+backend/tsconfig.json
+
+
+--- backend/package.json
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "nest build",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/main"
+  },
+  "dependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/passport": "^10.0.3",
+    "@nestjs/platform-express": "^10.0.0",
+    "@prisma/client": "^5.8.0",
+    "bcrypt": "^5.1.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.0.0",
+    "@nestjs/schematics": "^10.0.0",
+    "@nestjs/testing": "^10.0.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.3.1",
+    "@types/passport-jwt": "^3.0.13",
+    "prisma": "^5.8.0",
+    "typescript": "^5.1.3"
+  }
+}
+
+--- backend/tsconfig.json
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  }
+}
+
+--- backend/Dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npx prisma generate
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "run", "start:prod"]
+
+### 11. FIREBASE / SUPABASE / MAP / API REFERENCES
+backend/tsconfig.json:12:    "baseUrl": "./",
+
+### 12. MOCK / DEMO / PLACEHOLDER MARKERS
+android/app/build.gradle.kts:18:        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+android/app/build.gradle.kts:34:            // TODO: Add your own signing config for the release build.
+test/widget_test.dart:4:// utility in the flutter_test package. For example, you can send tap and scroll
+test/widget_test.dart:14:  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+test/widget_test.dart:18:    // Verify that our counter starts at 0.
+test/widget_test.dart:26:    // Verify that our counter has incremented.
+
+### 13. POSSIBLE SECRET FILES
+
+### 14. POSSIBLE SECRET CONTENT — FILENAMES ONLY
+backend/src/modules/auth/dto/auth.dto.ts
+
+### 15. DEPENDENCY TREE
+Dart SDK 3.13.2
+Flutter SDK 3.47.2
+global_logi_pro 1.0.0+1
+
+dependencies:
+- flutter 0.0.0 [characters collection material_color_utilities meta vector_math sky_engine]
+- http 1.6.0 [async http_parser meta web]
+- path 1.9.1
+- sqflite 2.4.3 [flutter sqflite_android sqflite_darwin sqflite_platform_interface sqflite_common path]
+- sqflite_common_ffi 2.4.2+1 [sqlite3 sqflite_common synchronized path meta]
+- url_launcher 6.3.2 [flutter url_launcher_android url_launcher_ios url_launcher_linux url_launcher_macos url_launcher_platform_interface url_launcher_web url_launcher_windows]
+- web_socket_channel 3.0.3 [async crypto stream_channel web web_socket]
+
+dev dependencies:
+- flutter_lints 3.0.2 [lints]
+- flutter_test 0.0.0 [flutter test_api matcher path fake_async clock stack_trace vector_math leak_tracker_flutter_testing collection meta stream_channel]
+
+transitive dependencies:
+- async 2.13.1 [collection meta]
+- boolean_selector 2.1.2 [source_span string_scanner]
+- characters 1.4.1
+- clock 1.1.3
+- code_assets 1.2.1 [collection hooks]
+- collection 1.19.1
+- crypto 3.0.7 [typed_data]
+- fake_async 1.3.3 [clock collection]
+- ffi 2.2.0
+- file 7.0.1 [meta path]
+- flutter_web_plugins 0.0.0 [flutter]
+- glob 2.2.0 [async collection file path string_scanner]
+- hooks 2.0.2 [collection crypto logging meta pub_semver record_use yaml]
+- http_parser 4.1.2 [collection source_span string_scanner typed_data]
+- leak_tracker 11.0.2 [clock collection meta path vm_service]
+- leak_tracker_flutter_testing 3.0.10 [flutter leak_tracker leak_tracker_testing matcher meta]
+- leak_tracker_testing 3.0.2 [leak_tracker matcher meta]
+- lints 3.0.0
+- logging 1.3.0
+- matcher 0.12.20 [async meta stack_trace term_glyph test_api]
+- material_color_utilities 0.13.0 [collection]
+- meta 1.18.3
+- native_toolchain_c 0.19.2 [code_assets glob hooks logging meta pub_semver]
+- platform 3.1.6
+- plugin_platform_interface 2.1.8 [meta]
+- pub_semver 2.2.1 [collection]
+- record_use 0.6.0 [collection meta pub_semver]
+- sky_engine 0.0.0
+- source_span 1.10.2 [collection path term_glyph]
+- sqflite_android 2.4.3 [flutter sqflite_common path sqflite_platform_interface]
+- sqflite_common 2.5.11 [synchronized path meta]
+- sqflite_darwin 2.4.3+1 [flutter sqflite_platform_interface meta sqflite_common path]
+- sqflite_platform_interface 2.4.1 [flutter platform sqflite_common plugin_platform_interface meta]
+- sqlite3 3.5.2 [collection ffi meta path web typed_data hooks code_assets native_toolchain_c crypto]
+- stack_trace 1.12.2 [path]
+- stream_channel 2.1.4 [async]
+- string_scanner 1.4.1 [source_span]
+- synchronized 3.4.1+2
+- term_glyph 1.2.2
+- test_api 0.7.12 [async boolean_selector collection meta source_span stack_trace stream_channel string_scanner term_glyph]
+- typed_data 1.4.0 [collection]
+- url_launcher_android 6.3.33 [flutter meta url_launcher_platform_interface]
+- url_launcher_ios 6.4.2 [flutter meta url_launcher_platform_interface]
+- url_launcher_linux 3.2.3 [flutter meta url_launcher_platform_interface]
+- url_launcher_macos 3.2.6 [flutter meta url_launcher_platform_interface]
+- url_launcher_platform_interface 2.3.2 [flutter plugin_platform_interface]
+- url_launcher_web 2.4.3 [flutter flutter_web_plugins url_launcher_platform_interface web]
+- url_launcher_windows 3.1.6 [flutter meta url_launcher_platform_interface]
+- vector_math 2.4.0
+- vm_service 15.3.0
+- web 1.1.1
+- web_socket 1.0.1 [web]
+- yaml 3.1.4 [collection source_span string_scanner]
+
+### 16. DART ANALYZE
+Resolving dependencies...
+Downloading packages...
+  code_assets 1.2.1 (2.0.0 available)
+  flutter_lints 3.0.2 (6.0.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  lints 3.0.0 (6.1.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.4 available)
+  platform 3.1.6 (3.2.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  test_api 0.7.12 (0.7.14 available)
+  vector_math 2.4.0 (2.4.2 available)
+Got dependencies!
+11 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Analyzing global-logi-pro...                                    
+
+   info • The imported package 'mqtt_client' isn't a dependency of the importing package. Try adding a dependency for 'mqtt_client' in the 'pubspec.yaml' file • lib/core/network/mqtt_service.dart:2:8 • depend_on_referenced_packages
+  error • Target of URI doesn't exist: 'package:mqtt_client/mqtt_client.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist • lib/core/network/mqtt_service.dart:2:8 • uri_does_not_exist
+   info • The imported package 'mqtt_client' isn't a dependency of the importing package. Try adding a dependency for 'mqtt_client' in the 'pubspec.yaml' file • lib/core/network/mqtt_service.dart:3:8 • depend_on_referenced_packages
+  error • Target of URI doesn't exist: 'package:mqtt_client/mqtt_server_client.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist • lib/core/network/mqtt_service.dart:3:8 • uri_does_not_exist
+  error • Undefined class 'MqttServerClient'. Try changing the name to the name of an existing class, or creating a class with the name 'MqttServerClient' • lib/core/network/mqtt_service.dart:6:8 • undefined_class
+  error • The method 'MqttServerClient' isn't defined for the type 'MqttService'. Try correcting the name to the name of an existing method, or defining a method named 'MqttServerClient' • lib/core/network/mqtt_service.dart:10:14 • undefined_method
+  error • The method 'MqttConnectMessage' isn't defined for the type 'MqttService'. Try correcting the name to the name of an existing method, or defining a method named 'MqttConnectMessage' • lib/core/network/mqtt_service.dart:15:25 • undefined_method
+  error • Undefined name 'MqttQos'. Try correcting the name to one that is defined, or defining the name • lib/core/network/mqtt_service.dart:28:29 • undefined_identifier
+  error • The name 'MqttReceivedMessage' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'MqttReceivedMessage' • lib/core/network/mqtt_service.dart:30:34 • non_type_as_type_argument
+  error • The name 'MqttMessage' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'MqttMessage' • lib/core/network/mqtt_service.dart:30:54 • non_type_as_type_argument
+  error • The name 'MqttPublishMessage' isn't a type, so it can't be used in an 'as' expression. Try changing the name to the name of an existing type, or creating a type with the name 'MqttPublishMessage' • lib/core/network/mqtt_service.dart:31:39 • cast_to_non_type
+  error • The method 'MqttClientPayloadBuilder' isn't defined for the type 'MqttService'. Try correcting the name to the name of an existing method, or defining a method named 'MqttClientPayloadBuilder' • lib/core/network/mqtt_service.dart:41:21 • undefined_method
+  error • Undefined name 'MqttQos'. Try correcting the name to one that is defined, or defining the name • lib/core/network/mqtt_service.dart:43:34 • undefined_identifier
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/screens/driver_screen.dart:29:13 • prefer_const_constructors
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal • lib/screens/driver_screen.dart:31:25 • prefer_const_literals_to_create_immutables
+  error • The name 'MyApp' isn't a class. Try correcting the name to match an existing class • test/widget_test.dart:16:35 • creation_with_non_type
+
+16 issues found. (ran in 7.9s)
+
+### 17. FLUTTER TEST
+Resolving dependencies...
+Downloading packages...
+  code_assets 1.2.1 (2.0.0 available)
+  flutter_lints 3.0.2 (6.0.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  lints 3.0.0 (6.1.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.4 available)
+  platform 3.1.6 (3.2.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  test_api 0.7.12 (0.7.14 available)
+  vector_math 2.4.0 (2.4.2 available)
+Got dependencies!
+11 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /home/thien/Projects/global-logi-pro/test/widget_test.dart
+test/widget_test.dart:16:35: Error: Couldn't find constructor 'MyApp'.
+    await tester.pumpWidget(const MyApp());
+                                  ^^^^^
+00:00 +0 -1: loading /home/thien/Projects/global-logi-pro/test/widget_test.dart [E]
+  Failed to load "/home/thien/Projects/global-logi-pro/test/widget_test.dart":
+  Compilation failed for testPath=/home/thien/Projects/global-logi-pro/test/widget_test.dart: test/widget_test.dart:16:35: Error: Couldn't find constructor 'MyApp'.
+      await tester.pumpWidget(const MyApp());
+                                    ^^^^^
+  .
+00:00 +0 -1: Some tests failed.
+
+Failing tests:
+  /home/thien/Projects/global-logi-pro/test/widget_test.dart: loading /home/thien/Projects/global-logi-pro/test/widget_test.dart
+
+### 18. DEBUG APK BUILD
+Resolving dependencies...
+Downloading packages...
+  code_assets 1.2.1 (2.0.0 available)
+  flutter_lints 3.0.2 (6.0.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  lints 3.0.0 (6.1.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.4 available)
+  platform 3.1.6 (3.2.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  test_api 0.7.12 (0.7.14 available)
+  vector_math 2.4.0 (2.4.2 available)
+Got dependencies!
+11 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Running Gradle task 'assembleDebug'...                            100,2s
+✓ Built build/app/outputs/flutter-apk/app-debug.apk
+
+### 19. APK OUTPUT
+build/app/outputs/apk/debug/app-debug.apk  156504910 bytes
+build/app/outputs/flutter-apk/app-debug.apk  156504910 bytes
+
+### 20. GIT STATUS AFTER AUDIT
+## main...origin/main
+?? VANT_OMNI_FULL_AUDIT.txt
+
+============================================================
+ AUDIT FINISHED
+============================================================

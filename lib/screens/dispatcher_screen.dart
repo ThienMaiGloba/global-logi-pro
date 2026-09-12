@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DispatcherScreen extends StatelessWidget {
-  const DispatcherScreen({Key? key}) : super(key: key);
+  final String backendUrl;
+
+  const DispatcherScreen({super.key, required this.backendUrl});
 
   @override
   Widget build(BuildContext context) {

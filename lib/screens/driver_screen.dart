@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DriverScreen extends StatelessWidget {
-  const DriverScreen({Key? key}) : super(key: key);
+  final String backendUrl;
+
+  const DriverScreen({super.key, required this.backendUrl});
 
   @override
   Widget build(BuildContext context) {

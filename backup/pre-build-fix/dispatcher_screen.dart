@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
-class AdminDashboardScreen extends StatelessWidget {
-  final String backendUrl;
-
-  const AdminDashboardScreen({super.key, required this.backendUrl});
+class DispatcherScreen extends StatelessWidget {
+  const DispatcherScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Admin Dashboard'),
-        backgroundColor: Colors.indigo,
+        title: const Text('Dispatcher Dashboard'),
+        backgroundColor: Colors.orange,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -18,13 +16,13 @@ class AdminDashboardScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Text(
-              'Tổng quan hệ thống',
+              'Điều phối vận chuyển',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             Expanded(
               child: Center(
-                child: Text('Chào mừng quản trị viên đến với Global Logi Pro.'),
+                child: Text('Danh sách điều phối đang trống.'),
               ),
             ),
           ],

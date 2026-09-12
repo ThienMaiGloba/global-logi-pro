@@ -3,14 +3,12 @@ import { AuthModule } from './auth/auth.module';
 import { HealthController } from './common/health.controller';
 import { OrdersModule } from './orders/orders.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
     PrismaModule,
     AuthModule,
     OrdersModule,
-    AdminModule,
   ],
   controllers: [HealthController],
 })

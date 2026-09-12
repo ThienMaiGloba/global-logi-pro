@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
-  final String backendUrl;
-
-  const AdminDashboardScreen({super.key, required this.backendUrl});
+  const AdminDashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

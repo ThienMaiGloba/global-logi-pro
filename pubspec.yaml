@@ -1,29 +1,23 @@
 name: global_logi_pro
-description: "Global Logi Pro Logistics Application"
+description: "A new Flutter project."
 publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  sqflite: ^2.3.2
-  sqflite_common_ffi: ^2.3.3
-  path: ^1.9.0
-  url_launcher: ^6.2.5
-  http: ^1.6.0
-  web_socket_channel: ^3.0.3
-<<<<<<< HEAD
+  cupertino_icons: ^1.0.2
   mqtt_client: ^10.11.11
-=======
->>>>>>> 4f4dee3efa65b4e34943f620df3f1d97dceed81b
+  http: ^1.1.0
+  web_socket_channel: ^2.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true

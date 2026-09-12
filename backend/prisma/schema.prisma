@@ -13,26 +13,200 @@ enum RoleType {
   DRIVER_CAR
   DRIVER_TRUCK
   FLEET_MANAGER
+  DISPATCHER
   ADMIN
   SUPER_ADMIN
 }
 
+enum VehicleType {
+  MOTORBIKE
+  VAN_500KG
+  VAN_700KG
+  TRUCK_500KG
+  TRUCK_750KG
+  TRUCK_1T
+  TRUCK_1_5T
+  TRUCK_2T
+  TRUCK_2_5T
+  TRUCK_3_5T
+  TRUCK_5T
+  TRUCK_8T
+  TRUCK_15T
+  BUS_16
+  BUS_52
+  SLEEPER_BUS
+  RESCUE
+  CRANE
+  LIFTGATE
+  SEPTIC
+  CONCRETE
+  CONTAINER
+}
+
+enum OrderStatus {
+  DRAFT
+  QUOTED
+  CONFIRMED
+  SEARCHING_DRIVER
+  DRIVER_OFFER
+  DRIVER_ACCEPTED
+  DRIVER_ARRIVING
+  ARRIVED_PICKUP
+  LOADING
+  IN_TRANSIT
+  ARRIVED_STOP
+  DELIVERING
+  DELIVERED
+  COMPLETED
+  CANCELLED
+}
+
+enum StopType {
+  PICKUP
+  DELIVERY
+  WAYPOINT
+}
+
+enum AssignmentStatus {
+  OFFERED
+  ACCEPTED
+  REJECTED
+  EXPIRED
+  CANCELLED
+  COMPLETED
+}
+
 model User {
-  id           String      @id @default(uuid())
-  phone        String      @unique
-  email        String?     @unique
+  id           String   @id @default(uuid())
+  phone        String   @unique
+  email        String?  @unique
   passwordHash String
   fullName     String
-  isActive     Boolean     @default(true)
-  isVerified   Boolean     @default(false)
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  roles        UserRole[]
+  isActive     Boolean  @default(true)
+  isVerified   Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  roles           UserRole[]
+  driver          DriverProfile? @relation(fields: [driverProfileId], references: [id])
+  orders          Order[]        @relation("CustomerOrders")
+  auditLogs       AuditLog[]
+  driverProfileId String?
 }
 
 model UserRole {
   id     String   @id @default(uuid())
   userId String
-  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   role   RoleType
+  User   User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, role])
+}
+
+model DriverProfile {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  online          Boolean           @default(false)
+  isVerified      Boolean           @default(false)
+  rating          Float             @default(5)
+  acceptRate      Float             @default(1)
+  cancelRate      Float             @default(0)
+  responseSeconds Float             @default(0)
+  batteryPercent  Int?
+  vehicles        Vehicle[]
+  assignments     OrderAssignment[] @relation("DriverAssignments")
+  User            User[]
+  DriverLocation  DriverLocation[]
+}
+
+model Vehicle {
+  id       String @id @default(uuid())
+  driverId String
+
+  type            VehicleType
+  plateNumber     String         @unique
+  capacityKg      Int
+  isActive        Boolean        @default(true)
+  createdAt       DateTime       @default(now())
+  DriverProfile   DriverProfile? @relation(fields: [driverProfileId], references: [id])
+  driverProfileId String?
+}
+
+model Order {
+  id             String      @id @default(uuid())
+  customerId     String
+  customer       User        @relation("CustomerOrders", fields: [customerId], references: [id])
+  status         OrderStatus @default(DRAFT)
+  price          Int         @default(0)
+  currency       String      @default("VND")
+  notes          String?
+  idempotencyKey String?     @unique
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  stops       OrderStop[]
+  assignments OrderAssignment[] @relation("OrderAssignments")
+}
+
+model OrderStop {
+  id          String    @id @default(uuid())
+  orderId     String
+  order       Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  sequence    Int
+  type        StopType
+  latitude    Float
+  longitude   Float
+  address     String
+  arrivedAt   DateTime?
+  completedAt DateTime?
+
+  @@unique([orderId, sequence])
+}
+
+model OrderAssignment {
+  id         String           @id @default(uuid())
+  orderId    String
+  order      Order            @relation("OrderAssignments", fields: [orderId], references: [id], onDelete: Cascade)
+  driverId   String
+  driver     DriverProfile    @relation("DriverAssignments", fields: [driverId], references: [id], onDelete: Cascade)
+  status     AssignmentStatus @default(OFFERED)
+  offeredAt  DateTime         @default(now())
+  expiresAt  DateTime
+  acceptedAt DateTime?
+  lockedAt   DateTime?
+
+  @@index([orderId, status])
+  @@index([driverId, status])
+}
+
+model DriverLocation {
+  id       String @id @default(uuid())
+  driverId String
+
+  profile   DriverProfile @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  latitude  Float
+  longitude Float
+  heading   Float?
+  accuracy  Float?
+  battery   Int?
+  online    Boolean       @default(true)
+  tripId    String?
+  updatedAt DateTime      @updatedAt
+  createdAt DateTime      @default(now())
+
+  @@index([driverId, updatedAt])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id])
+  action     String
+  entityType String
+  entityId   String?
+  payload    Json?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
 }

@@ -1,0 +1,13 @@
+name: vogx_core
+description: Shared core for VOGX applications.
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.5.0
+  url_launcher: ^6.3.2
+  geolocator: ^14.0.2

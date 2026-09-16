@@ -1,5 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<manifest <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <application
         android:label="vogx_admin"
         android:name="${applicationName}"

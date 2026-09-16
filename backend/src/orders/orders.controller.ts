@@ -5,10 +5,16 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { OrderStatus } from '@prisma/client';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrdersService } from './orders.service';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { AuthenticatedUser } from '../auth/guards/jwt-auth.guard';
 
 @Controller('orders')
 export class OrdersController {
@@ -24,14 +30,14 @@ export class OrdersController {
     return this.orders.findOne(id);
   }
 
-  // Temporary development endpoint.
-  // Production will derive customerId from JWT instead.
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('CUSTOMER')
   create(
-    @Body()
-    body: CreateOrderDto & { customerId: string },
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: CreateOrderDto,
   ) {
-    return this.orders.create(body.customerId, body);
+    return this.orders.create(user.sub, dto);
   }
 
   @Patch(':id/status')

@@ -9,48 +9,63 @@ class NavigationService {
   }) async {
     final encodedLabel = Uri.encodeComponent(label ?? 'VOGX Destination');
 
-    // Android Google Maps navigation intent.
+    // Android Google Maps native navigation.
+    // Android đã xác nhận google.navigation: được Google Maps xử lý.
     final googleNavigation = Uri.parse(
       'google.navigation:q=$latitude,$longitude',
     );
 
     try {
-      if (await canLaunchUrl(googleNavigation)) {
-        return await launchUrl(
-          googleNavigation,
-          mode: LaunchMode.externalApplication,
-        );
+      final launched = await launchUrl(
+        googleNavigation,
+        mode: LaunchMode.externalApplication,
+      );
+
+      if (launched) {
+        return true;
       }
     } on PlatformException {
-      // Continue to fallbacks.
+      // Continue to HTTPS fallback.
+    } catch (_) {
+      // Continue to HTTPS fallback.
     }
 
-    // Google Maps universal URL.
+    // Google Maps universal URL fallback.
     final googleMaps = Uri.parse(
       'https://www.google.com/maps/dir/?api=1'
       '&destination=$latitude,$longitude'
       '&destination_place_id=$encodedLabel',
     );
 
-    if (await canLaunchUrl(googleMaps)) {
-      return launchUrl(
+    try {
+      final launched = await launchUrl(
         googleMaps,
         mode: LaunchMode.externalApplication,
       );
+
+      if (launched) {
+        return true;
+      }
+    } on PlatformException {
+      // Continue to geo fallback.
+    } catch (_) {
+      // Continue to geo fallback.
     }
 
-    // Generic geo/browser fallback.
+    // Generic Android geo fallback.
     final fallback = Uri.parse(
       'geo:$latitude,$longitude?q=$latitude,$longitude($encodedLabel)',
     );
 
-    if (await canLaunchUrl(fallback)) {
-      return launchUrl(
+    try {
+      return await launchUrl(
         fallback,
         mode: LaunchMode.externalApplication,
       );
+    } on PlatformException {
+      return false;
+    } catch (_) {
+      return false;
     }
-
-    return false;
   }
 }

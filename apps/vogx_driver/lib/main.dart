@@ -30,7 +30,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final api = ApiClient('http://10.0.2.2:3000');
+  final api = ApiClient('http://192.168.1.42:3000');
   String status = 'VOGX Driver sẵn sàng';
 
   Future<void> checkBackend() async {

@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { OrderStatus } from '@prisma/client';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { OfferOrderDto } from './dto/offer-order.dto';
 import { OrdersService } from './orders.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -40,7 +41,19 @@ export class OrdersController {
     return this.orders.create(user.sub, dto);
   }
 
+  @Post(':id/offer')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN', 'SUPER_ADMIN', 'DISPATCHER')
+  offer(
+    @Param('id') id: string,
+    @Body() dto: OfferOrderDto,
+  ) {
+    return this.orders.offerOrder(id, dto);
+  }
+
   @Patch(':id/status')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN', 'SUPER_ADMIN', 'DISPATCHER')
   transition(
     @Param('id') id: string,
     @Body('status') status: OrderStatus,

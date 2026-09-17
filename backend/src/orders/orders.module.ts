@@ -1,11 +1,17 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from '../auth/auth.module';
+import { DriverOrdersController } from './driver-orders.controller';
+import { DriverTripController } from './driver-trip.controller';
 import { OrdersController } from './orders.controller';
 import { OrdersService } from './orders.service';
 
 @Module({
   imports: [AuthModule],
-  controllers: [OrdersController],
+  controllers: [
+    OrdersController,
+    DriverOrdersController,
+    DriverTripController,
+  ],
   providers: [OrdersService],
 })
 export class OrdersModule {}
